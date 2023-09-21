@@ -15,6 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import net.bytebuddy.description.NamedElement.WithOptionalName;
+
 
 public class WebElementsTest {
 	
@@ -124,6 +126,35 @@ public class WebElementsTest {
 		
 		assertEquals("Item 7", selectSingle.getFirstSelectedOption().getText());
 				
+	}
+	
+	@Test
+	public void testValidaSelectMulti() throws InterruptedException {
+		WebElement elementMulti = driver.findElement(By.name("multiselectdropdown"));
+		
+		Select selectMulti = new Select(elementMulti);
+		
+		selectMulti.selectByVisibleText("Item 10");
+							
+		selectMulti.selectByVisibleText("Item 5");
+		selectMulti.selectByVisibleText("Item 8");
+		selectMulti.selectByVisibleText("Item 9");
+		
+		selectMulti.deselectByIndex(9);
+		
+		//Busca todos os selecionados no momento
+		List<WebElement> optionsSelected = selectMulti.getAllSelectedOptions();
+		
+		//Quantos são
+		assertEquals(3, optionsSelected.size());
+		
+		//Quais são
+		assertEquals("Item 5", optionsSelected.get(0).getText());
+		assertEquals("Item 8", optionsSelected.get(1).getText());
+		assertEquals("Item 9", optionsSelected.get(2).getText());	
+		
+		Thread.sleep(3000);
+		
 	}
 	
 }
