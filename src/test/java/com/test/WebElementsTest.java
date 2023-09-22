@@ -9,13 +9,12 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-
-import net.bytebuddy.description.NamedElement.WithOptionalName;
 
 
 public class WebElementsTest {
@@ -175,5 +174,34 @@ public class WebElementsTest {
 		
 	}
 	
+	@Test
+	public void testValidaAlert() throws InterruptedException {
+		WebElement btnAlert = driver.findElement(By.name("alertbtn"));
+		btnAlert.click();
+		
+		Alert alerta = driver.switchTo().alert();	
+		assertEquals("Eu sou um alerta!", alerta.getText());		
+		alerta.accept();	
+		
+		WebElement btnConfirm = driver.findElement(By.name("confirmbtn"));
+		btnConfirm.click();
+		
+		Alert confirme = driver.switchTo().alert();
+		assertEquals("Pressione um botão!", confirme.getText());
+		confirme.dismiss();
+		
+		WebElement btnPrompt = driver.findElement(By.id("promptBtn"));
+		btnPrompt.click();		
+		Alert promptAlert = driver.switchTo().alert();
+		assertEquals("Digite o ano:", promptAlert.getText());
+		
+		promptAlert.sendKeys("2023");		
+		Thread.sleep(3000);		
+		promptAlert.accept();
+		
+		Alert promptAno = driver.switchTo().alert();		
+		assertEquals("O ano é 2023?", promptAno.getText());
+		Thread.sleep(3000);
+	}
 	
 }
