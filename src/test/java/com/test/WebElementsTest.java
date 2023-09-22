@@ -38,17 +38,11 @@ public class WebElementsTest {
 
 	@Test
 	public void testValidaNome() throws InterruptedException {
-		
-		Thread.sleep(3000);
-				
 		//Mapeia o componente de texto		
 		WebElement tfName = driver.findElement(By.name("txtbox1"));
 		
 		//Faz a interação de envio de texto
-		tfName.sendKeys("Antônio");
-				
-		Thread.sleep(3000);
-		
+		tfName.sendKeys("Antônio");				
 		//Valida o resultado
 		assertEquals("Antônio", tfName.getAttribute("value"));				
 	}
@@ -78,7 +72,6 @@ public class WebElementsTest {
 				break;
 			}			
 		}
-		Thread.sleep(3000);
 		
 		assertTrue(radioList.get(2).isSelected());
 		
@@ -116,12 +109,9 @@ public class WebElementsTest {
 		
 		Select selectSingle = new Select(elementSingle);
 		
-		selectSingle.selectByIndex(1);
-		Thread.sleep(2000);
+		selectSingle.selectByIndex(1);		
 		selectSingle.selectByValue("item5");
-		Thread.sleep(2000);
 		selectSingle.selectByVisibleText("Item 7");
-		Thread.sleep(2000);
 		
 		assertEquals("Item 7", selectSingle.getFirstSelectedOption().getText());
 				
@@ -150,9 +140,7 @@ public class WebElementsTest {
 		//Quais são
 		assertEquals("Item 5", optionsSelected.get(0).getText());
 		assertEquals("Item 8", optionsSelected.get(1).getText());
-		assertEquals("Item 9", optionsSelected.get(2).getText());	
-		
-		Thread.sleep(3000);
+		assertEquals("Item 9", optionsSelected.get(2).getText());			
 		
 	}
 	
@@ -167,9 +155,11 @@ public class WebElementsTest {
 		assertEquals("Hello iframe", tfIframe.getAttribute("value"));
 		
 		WebElement button = driver.findElement(By.id("btniframe"));
+		button.click();
 		
-		//TODO: implementar o clique do botão
-		//button.click();		
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		
 		driver.switchTo().defaultContent();
 		
 	}
@@ -195,13 +185,11 @@ public class WebElementsTest {
 		Alert promptAlert = driver.switchTo().alert();
 		assertEquals("Digite o ano:", promptAlert.getText());
 		
-		promptAlert.sendKeys("2023");		
-		Thread.sleep(3000);		
+		promptAlert.sendKeys("2023");			
 		promptAlert.accept();
 		
 		Alert promptAno = driver.switchTo().alert();		
 		assertEquals("O ano é 2023?", promptAno.getText());
-		Thread.sleep(3000);
 	}
 	
 }
