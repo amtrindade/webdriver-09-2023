@@ -157,4 +157,23 @@ public class WebElementsTest {
 		
 	}
 	
+	@Test
+	public void testValidaIFrame() {
+		driver.switchTo().frame(0);
+		
+		WebElement tfIframe = driver.findElement(By.id("tfiframe"));
+		
+		tfIframe.sendKeys("Hello iframe");
+		
+		assertEquals("Hello iframe", tfIframe.getAttribute("value"));
+		
+		WebElement button = driver.findElement(By.id("btniframe"));
+		
+		//TODO: implementar o clique do botão
+		//button.click();		
+		driver.switchTo().defaultContent();
+		
+	}
+	
+	
 }
