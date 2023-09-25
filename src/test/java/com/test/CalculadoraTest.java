@@ -59,6 +59,7 @@ public class CalculadoraTest {
 		btnSomar.click();
 
 		Thread.sleep(3000);
+		//TODO: alterar para espera explícita		
 
 		assertEquals(String.valueOf(valTotal), tfTotal.getAttribute("value"));
 	}
