@@ -15,6 +15,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class RegularExpressionCPFTest {
 	
 	private WebDriver driver;
+	private WebElement tfCpf;
+	private WebElement chkMascara;
+	private WebElement btnGerar;
+	
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -22,7 +27,11 @@ public class RegularExpressionCPFTest {
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		
-		driver.get("https://www.geradordecpf.org/");		
+		driver.get("https://www.geradordecpf.org/");
+		
+		tfCpf = driver.findElement(By.id("numero"));
+		chkMascara = driver.findElement(By.id("cbPontos"));		
+		btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
 	}
 
 	@After
@@ -31,11 +40,7 @@ public class RegularExpressionCPFTest {
 	}
 
 	@Test
-	public void testValidaCPFComMascara() throws InterruptedException {
-		WebElement tfCpf = driver.findElement(By.id("numero"));
-		WebElement chkMascara = driver.findElement(By.id("cbPontos"));		
-		WebElement btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
-		
+	public void testValidaCPFComMascara() throws InterruptedException {			
 		chkMascara.click();
 		btnGerar.click();
 		
@@ -47,6 +52,15 @@ public class RegularExpressionCPFTest {
 		
 		Thread.sleep(3000);
 	}
-
-
+	
+	@Test 
+	public void testValidaCPFSemMascara() throws InterruptedException {
+		btnGerar.click();
+		
+		String cpfGeradoSemMascara = tfCpf.getAttribute("value");
+		System.out.println(cpfGeradoSemMascara);
+		
+		assertTrue(cpfGeradoSemMascara.matches("^[0-9]{11}$"));		
+		Thread.sleep(3000);
+	}
 }
