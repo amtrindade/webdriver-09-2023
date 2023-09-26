@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -143,7 +144,7 @@ public class WebElementsTest {
 		assertEquals("Item 9", optionsSelected.get(2).getText());			
 		
 	}
-	
+		
 	@Test
 	public void testValidaIFrame() {
 		driver.switchTo().frame(0);
@@ -160,8 +161,7 @@ public class WebElementsTest {
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 		
-		driver.switchTo().defaultContent();
-		
+		driver.switchTo().defaultContent();		
 	}
 	
 	@Test
