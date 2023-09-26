@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -27,8 +27,8 @@ public class WebElementsTest {
 		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
 		//Alterar o path do driver de acordo com o SO
 		//System.setProperty("webdriver.chrome.driver", "C:\\driver\\chromedriver.exe");
-		driver = new ChromeDriver();		
-				
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));			
 		driver.get("http://antoniotrindade.com.br/treinoautomacao/elementsweb.html");			
 	}
 

@@ -2,6 +2,7 @@ package com.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -19,7 +20,8 @@ public class NavigationTabsTest {
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();						
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("http://antoniotrindade.com.br/treinoautomacao");			
 	}
 

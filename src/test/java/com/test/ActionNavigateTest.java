@@ -2,6 +2,8 @@ package com.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.Duration;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,8 @@ public class ActionNavigateTest {
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();						
+		driver = new ChromeDriver();	
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("http://antoniotrindade.com.br/treinoautomacao");			
 	}
 
