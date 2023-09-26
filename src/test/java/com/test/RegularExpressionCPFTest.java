@@ -18,8 +18,6 @@ public class RegularExpressionCPFTest {
 	private WebElement tfCpf;
 	private WebElement chkMascara;
 	private WebElement btnGerar;
-	
-	
 
 	@Before
 	public void setUp() throws Exception {
