@@ -49,6 +49,4 @@ public class NavigationTabsTest {
 		driver.switchTo().window(tabs.get(0));
 		assertEquals("Treino Automação de Testes", driver.getTitle());								
 	}
-
-
 }
