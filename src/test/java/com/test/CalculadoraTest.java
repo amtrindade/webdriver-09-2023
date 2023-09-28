@@ -12,6 +12,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CalculadoraTest {
 
@@ -59,9 +62,13 @@ public class CalculadoraTest {
 		tfValor2.sendKeys(String.valueOf(val2));
 
 		btnSomar.click();
+		
+		System.out.println(valTotal);
 
-		Thread.sleep(3000);
-		//TODO: alterar para espera explícita		
+		// Espera explícita pelo valor do locator
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions
+				.textToBePresentInElementValue(tfTotal, String.valueOf(valTotal)));
 
 		assertEquals(String.valueOf(valTotal), tfTotal.getAttribute("value"));
 	}
