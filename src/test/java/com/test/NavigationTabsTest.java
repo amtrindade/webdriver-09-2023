@@ -1,54 +1,43 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
-import java.time.Duration;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class NavigationTabsTest {
-	
-	private WebDriver driver;
+import com.core.BaseTest;
+
+public class NavigationTabsTest extends BaseTest{		
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-		driver.get("http://antoniotrindade.com.br/treinoautomacao");			
+		getDriver().get("http://antoniotrindade.com.br/treinoautomacao");			
 	}
-
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
-	
+		
 	@Test
 	public void testNavigationTabs() {
-		assertEquals("Treino Automação de Testes", driver.getTitle());
+		assertEquals("Treino Automação de Testes", getDriver().getTitle());
 		
-		WebElement linkCPF = driver.findElement(By.linkText("Gerador de CPF"));
+		WebElement linkCPF = getDriver().findElement(By.linkText("Gerador de CPF"));
 		linkCPF.click();
 		
-		WebElement linkJQuery = driver.findElement(By.linkText("Drag and Drop JQuery"));
+		WebElement linkJQuery = getDriver().findElement(By.linkText("Drag and Drop JQuery"));
 		linkJQuery.click();					
 		
-		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());		
-		driver.switchTo().window(tabs.get(2));
+		ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());		
+		getDriver().switchTo().window(tabs.get(2));
 		
-		assertEquals("Gerador de CPF", driver.getTitle());
+		assertEquals("Gerador de CPF", getDriver().getTitle());
 		
-		driver.switchTo().window(tabs.get(1));
-		assertEquals("jQuery UI Droppable - Default functionality", driver.getTitle());
+		getDriver().switchTo().window(tabs.get(1));
+		assertEquals("jQuery UI Droppable - Default functionality", getDriver().getTitle());
 		
-		driver.switchTo().window(tabs.get(0));
-		assertEquals("Treino Automação de Testes", driver.getTitle());								
+		getDriver().switchTo().window(tabs.get(0));
+		assertEquals("Treino Automação de Testes", getDriver().getTitle());								
 	}
 }

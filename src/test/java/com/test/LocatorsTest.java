@@ -1,40 +1,27 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Duration;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LocatorsTest {
-	
-	private WebDriver driver;
+import com.core.BaseTest;
+
+public class LocatorsTest extends BaseTest{
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-		
-		driver.get("http://antoniotrindade.com.br/treinoautomacao/localizandovalorestable.html");		
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
+		getDriver().get("http://antoniotrindade.com.br/treinoautomacao/localizandovalorestable.html");		
 	}
 	
 	@Test
 	public void testLocatorCssSelector() {
 		//Utilizando locator cssSelector
-		WebElement tfReserva = driver.findElement(By.cssSelector("[name=txtName]"));
+		WebElement tfReserva = getDriver().findElement(By.cssSelector("[name=txtName]"));
 		tfReserva.sendKeys("Reservado");
 		
 		assertEquals("Reservado", tfReserva.getAttribute("value"));				
@@ -43,7 +30,7 @@ public class LocatorsTest {
 	@Test
 	public void testLocatorXpath() {
 		//Utilizando locator xpath
-		WebElement tfReserva = driver.findElement(By.xpath("//input[@id='txt01']"));
+		WebElement tfReserva = getDriver().findElement(By.xpath("//input[@id='txt01']"));
 		tfReserva.sendKeys("Reservado");
 		
 		assertEquals("Reservado", tfReserva.getAttribute("value"));				
@@ -53,28 +40,25 @@ public class LocatorsTest {
 	public void testLocatorXpathContainsText() throws InterruptedException {
 		String name = "Antônio";
 		
-		WebElement chkBox = driver.findElement(By
+		WebElement chkBox = getDriver().findElement(By
 				.xpath("//td[contains(text(),'"+ name +"')]/../td/input"));
 		
 		chkBox.click();
 		
-		assertTrue(chkBox.isSelected());
-		
-		Thread.sleep(3000);		
+		assertTrue(chkBox.isSelected());		
 	}
 	
 	@Test
 	public void testLocatorsPreceding() throws InterruptedException {
-		WebElement nomeColuna = driver.findElement(By
+		WebElement nomeColuna = getDriver().findElement(By
 				.xpath("//td[contains(text(),'mail2')]/preceding-sibling::td[1]"));
 		
 		String nome = nomeColuna.getText();
 		
-		WebElement tfReserva = driver.findElement(By.cssSelector("[name=txtName]"));
+		WebElement tfReserva = getDriver().findElement(By.cssSelector("[name=txtName]"));
 		tfReserva.sendKeys(nome);
 		
 		assertEquals("Fulano da Silva", tfReserva.getAttribute("value"));
-		Thread.sleep(3000);
 	}
 
 }

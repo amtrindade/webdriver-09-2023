@@ -1,42 +1,30 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertTrue;
 
-import java.time.Duration;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class RegularExpressionCPFTest {
-	
-	private WebDriver driver;
+import com.core.BaseTest;
+
+public class RegularExpressionCPFTest extends BaseTest{
+		
 	private WebElement tfCpf;
 	private WebElement chkMascara;
 	private WebElement btnGerar;
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		getDriver().get("https://www.geradordecpf.org/");
 		
-		driver.get("https://www.geradordecpf.org/");
-		
-		tfCpf = driver.findElement(By.id("numero"));
-		chkMascara = driver.findElement(By.id("cbPontos"));		
-		btnGerar = driver.findElement(By.id("btn-gerar-cpf"));
+		tfCpf = getDriver().findElement(By.id("numero"));
+		chkMascara = getDriver().findElement(By.id("cbPontos"));		
+		btnGerar = getDriver().findElement(By.id("btn-gerar-cpf"));
 	}
-
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
-
+	
 	@Test
 	public void testValidaCPFComMascara() throws InterruptedException {			
 		chkMascara.click();

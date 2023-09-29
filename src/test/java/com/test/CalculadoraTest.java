@@ -1,23 +1,22 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
 import java.time.Duration;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CalculadoraTest {
+import com.core.BaseTest;
 
-	private WebDriver driver;
+public class CalculadoraTest extends BaseTest{
+	
 	private WebElement tfValor1;
 	private WebElement tfValor2;
 	private WebElement tfTotal;
@@ -27,10 +26,7 @@ public class CalculadoraTest {
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-		driver.get("http://antoniotrindade.com.br/treinoautomacao/desafiosoma.html");
+		getDriver().get("http://antoniotrindade.com.br/treinoautomacao/desafiosoma.html");
 		//Mapeia elementos
 		mapeiaElementos();
 		
@@ -39,15 +35,11 @@ public class CalculadoraTest {
 		val2 = ThreadLocalRandom.current().nextInt(1, 99);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
 	
 	private void mapeiaElementos() {
-		tfValor1 = driver.findElement(By.id("number1"));
-		tfValor2 = driver.findElement(By.id("number2"));
-		tfTotal = driver.findElement(By.id("total"));
+		tfValor1 = getDriver().findElement(By.id("number1"));
+		tfValor2 = getDriver().findElement(By.id("number2"));
+		tfTotal = getDriver().findElement(By.id("total"));
 	}
 
 
@@ -55,7 +47,7 @@ public class CalculadoraTest {
 	public void testSoma() throws InterruptedException {		
 		Integer valTotal = val1 + val2;
 		
-		WebElement btnSomar = driver.findElement(By.id("somar"));
+		WebElement btnSomar = getDriver().findElement(By.id("somar"));
 
 		tfValor1.sendKeys(String.valueOf(val1));
 		tfValor2.sendKeys(String.valueOf(val2));
@@ -65,7 +57,7 @@ public class CalculadoraTest {
 		System.out.println(valTotal);
 
 		// Espera explícita pelo valor do locator
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions
 				.textToBePresentInElementValue(tfTotal, String.valueOf(valTotal)));
 
@@ -76,7 +68,7 @@ public class CalculadoraTest {
 	public void testSubtracao() {
 		Integer valTotal = val1 - val2;
 		
-		WebElement btnSubtracao = driver.findElement(By.id("subtrair"));
+		WebElement btnSubtracao = getDriver().findElement(By.id("subtrair"));
 		
 		tfValor1.sendKeys(String.valueOf(val1));
 		tfValor2.sendKeys(String.valueOf(val2));
@@ -90,7 +82,7 @@ public class CalculadoraTest {
 	public void testMultiplicacao() {		
 		Integer valTotal = val1 * val2;
 		
-		WebElement btnMultiplicacao = driver.findElement(By.id("multiplicar"));
+		WebElement btnMultiplicacao = getDriver().findElement(By.id("multiplicar"));
 		
 		tfValor1.sendKeys(String.valueOf(val1));
 		tfValor2.sendKeys(String.valueOf(val2));

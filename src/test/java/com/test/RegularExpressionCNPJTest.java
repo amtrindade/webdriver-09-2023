@@ -1,55 +1,45 @@
 package com.test;
 
+import static com.core.DriverFactory.getDriver;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class RegularExpressionCNPJTest {
-	
-	private WebDriver driver;
+import com.core.BaseTest;
 
+public class RegularExpressionCNPJTest extends BaseTest{
+	
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/home/atrindade/Dev/drivers/chrome/chromedriver");		
-		driver = new ChromeDriver();	
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.get("https://geradordecnpj.org/");			
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		driver.quit();
-	}
+		getDriver().get("https://geradordecnpj.org/");			
+	}	
 	
 	@Test
 	public void testValidaMascaraCNPJcomPontuacao() throws InterruptedException {
 		
 		//Espera iframe carregar com WebDriver wait
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 		wait.until(ExpectedConditions
 			.frameToBeAvailableAndSwitchToIt(
-				driver.findElement(By.xpath("//*[@id='tool-area']"))));
+				getDriver().findElement(By.xpath("//*[@id='tool-area']"))));
 		
 		//entra no iframe
-		driver.switchTo().frame("tool-area");
+		getDriver().switchTo().frame("tool-area");
 				
-		WebElement chk = driver.findElement(By.xpath("//input[@id='pontuacao']/.."));
+		WebElement chk = getDriver().findElement(By.xpath("//input[@id='pontuacao']/.."));
 		chk.click();
 		
-		WebElement btnGerar = driver.findElement(By.xpath("//button[.='Gerar']"));
+		WebElement btnGerar = getDriver().findElement(By.xpath("//button[.='Gerar']"));
 		btnGerar.click();
 		
-		WebElement tfCnpj = driver.findElement(By.id("cnpj"));
+		WebElement tfCnpj = getDriver().findElement(By.id("cnpj"));
 		String textCnpj = tfCnpj.getAttribute("value");
 		
 		System.out.println(textCnpj);
