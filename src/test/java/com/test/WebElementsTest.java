@@ -177,6 +177,10 @@ public class WebElementsTest extends BaseTest{
 		
 		Alert promptAno = getDriver().switchTo().alert();		
 		assertEquals("O ano é 2023?", promptAno.getText());
+		promptAno.accept();
+		
+		Alert promptFeito = getDriver().switchTo().alert();
+		promptFeito.accept();		
 	}
 	
 }
