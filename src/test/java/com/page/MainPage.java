@@ -17,6 +17,13 @@ public class MainPage {
 		WebElement divUserLogged = getDriver().findElement(By.xpath("//span[@class='text-login']/.."));
 		return divUserLogged.getText();		
 	}
+	
+	public TaskPage clickMenuTask() {
+		WebElement menuTask = getDriver().findElement(By.linkText("Tarefa"));
+		menuTask.click();
+		
+		return new TaskPage();		
+	}
 
 	
 }

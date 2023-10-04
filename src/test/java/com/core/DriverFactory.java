@@ -13,12 +13,11 @@ public class DriverFactory {
 	private static WebDriver driver;
 	
 	public static WebDriver getDriver() {
-		
-		// chrome / firefox / chrome-headless / firefox-headless		
-		String browser = GlobalProperty.getProperty("webdriver.test.browser");
-		String path = GlobalProperty.getProperty("webdriver.test.path");
-		
-		if (driver == null) {
+				
+		if (driver == null) {			
+			// chrome / firefox / chrome-headless / firefox-headless		
+			String browser = GlobalProperty.getProperty("webdriver.test.browser");
+			String path = GlobalProperty.getProperty("webdriver.test.path");
 			
 			if (browser.equals("chrome")) {
 				
@@ -56,6 +55,7 @@ public class DriverFactory {
 			}
 			
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+			driver.manage().window().maximize();
 		}
 		
 		return driver;
